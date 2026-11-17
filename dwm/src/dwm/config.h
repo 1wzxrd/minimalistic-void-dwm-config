@@ -13,6 +13,7 @@ restart(const Arg *arg)
     execvp("/usr/local/bin/dwm", (char *[]){ "/usr/local/bin/dwm", NULL });
 }
 
+
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -20,15 +21,12 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 0;        /* 0 means bottom bar */
 static const char *fonts[]          = { "cozette:size=9" };
 static const char dmenufont[]       = "cozette:size=9";
-static const char col_gray1[]       = "#000000"; /*unknown */
-static const char col_gray2[]       = "#000000"; /*status bar color */
-static const char col_gray3[]       = "#5BA8F0"; /*leftover workspace numbers shown */
-static const char col_gray4[]       = "#FFFFFF"; /*workspace with active or open stuff */
-static const char col_cyan[]        = "#230170"; /*targeted workspace and status bar when anything open */
+
+#include "colors.h"
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, /*window title bar*/
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  }, /* active bar text*/
+        /*               fg         bg         border   */
+        [SchemeNorm] = { col_gray3, col_gray1, col_gray2 }, /*window title bar*/
+        [SchemeSel]  = { col_gray4, col_cyan,  col_cyan  }, /* active bar text*/
 };
 
 /* tagging */
