@@ -5,7 +5,6 @@ WALLPAPER_DIR="$HOME/.local/share/wallpapers"
 CURRENT_LINK="$HOME/.config/wallpaper.jpg"
 
 if [ "$1" = "--random" ] || [ "$1" = "-r" ]; then
-    # Pick a random jpg/png/webp file from WALLPAPER_DIR
     PICKED=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | shuf -n 1)
     if [ -z "$PICKED" ]; then
         command -v notify-send >/dev/null 2>&1 && notify-send "Wallpaper" "No images found in $WALLPAPER_DIR"
@@ -32,13 +31,8 @@ fi
 # 3. Reload Xresources globally
 [ -f "$HOME/.Xresources" ] && xrdb -load "$HOME/.Xresources"
 
-# 4. Restart Dunst cleanly to pick up new colors
+# 4. Restart Dunst cleanly
 if pgrep -x dunst >/dev/null 2>&1; then
     pkill -x dunst
     dunst >/dev/null 2>&1 &
-fi
-
-# 5. Recompile dwm with updated colors.h (press Super+Control+R to hot-reload borders)
-if [ -d "$HOME/.local/src/dwm" ] && [ -f "$HOME/.local/src/dwm/colors.h" ]; then
-    sudo make -C "$HOME/.local/src/dwm" install >/dev/null 2>&1
 fi
