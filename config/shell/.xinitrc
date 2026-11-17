@@ -1,17 +1,25 @@
-#!/bin/sh
+!/bin/sh
 export MESA_LOADER_DRIVER_OVERRIDE=dri3
 
-# Set Swedish keyboard layout (English system locale)
+# Set Swedish keyboard layout
 setxkbmap -layout se
 
-# Start background daemons & compositor with blur support
+# Start background daemons
 gammastep -m randr &
 dunst &
 picom -b &
+slstatus &
 
-# Set wallpaper and apply matugen colors
+# Run wallpaper script in background so it never blocks X initialization
 ~/.local/bin/set-wallpaper &
 
-# Launch window manager
-slstatus &
-exec dwm
+# Launch dwm as the main session process
+#exec dwm
+
+
+
+
+# Safety loop so restart signals re-exec DWM instead of crashing X
+while true; do
+    dwm 2> ~/.dwm.log || break
+done
