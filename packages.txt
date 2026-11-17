@@ -18,12 +18,14 @@ dwm-6.8_1
 elogind-252.39_1
 fastfetch-2.67.1_1
 feh-3.12.2_1
+firefox-155.0_1
 flatpak-1.18.1_1
 font-cozette-1.30.0_1
 fuzzel-1.15.0_1
 gammastep-2.0.11_1
 genact-1.5.1_1
 git-2.55.0_1
+github-cli-2.99.0_1
 gnome-text-editor-50.1_1
 grub-i386-efi-2.12_2
 grub-x86_64-efi-2.12_2

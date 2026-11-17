@@ -2,18 +2,23 @@
 set -e
 
 echo "==> Installing Void Linux packages..."
-sudo xbps-install -Sy $(cat system/packages.txt)
+sudo xbps-install -Sy $(cat packages.txt)
 
-echo "==> Deploying system startup files..."
-cp -f system/.xinitrc system/.bash_profile system/.bashrc ~/ 2>/dev/null || true
+echo "==> Deploying shell & X11 startup files..."
+cp -f config/shell/.bashrc config/shell/.bash_profile config/shell/.xinitrc ~/ 2>/dev/null || true
 
-echo "==> Deploying theme & compositor configs..."
-mkdir -p ~/.config/{matugen,picom,gtk-3.0,gtk-4.0,alacritty}
-cp -rf theme/matugen/* ~/.config/matugen/
-cp -rf theme/picom/* ~/.config/picom/
-cp -rf theme/gtk-3.0/* ~/.config/gtk-3.0/
-cp -rf theme/gtk-4.0/* ~/.config/gtk-4.0/
-cp -rf theme/alacritty/* ~/.config/alacritty/
+echo "==> Deploying system configs (picom, pipewire)..."
+mkdir -p ~/.config/{picom,pipewire}
+cp -rf config/picom/* ~/.config/picom/ 2>/dev/null || true
+cp -rf config/pipewire/* ~/.config/pipewire/ 2>/dev/null || true
+
+echo "==> Deploying theme & app configs..."
+mkdir -p ~/.config/{matugen,gtk-3.0,gtk-4.0,pcmanfm,alacritty}
+cp -rf theme/matugen/* ~/.config/matugen/ 2>/dev/null || true
+cp -rf theme/gtk-3.0/* ~/.config/gtk-3.0/ 2>/dev/null || true
+cp -rf theme/gtk-4.0/* ~/.config/gtk-4.0/ 2>/dev/null || true
+cp -rf theme/pcmanfm/* ~/.config/pcmanfm/ 2>/dev/null || true
+cp -rf theme/alacritty/* ~/.config/alacritty/ 2>/dev/null || true
 
 echo "==> Deploying scripts and building suckless tools..."
 mkdir -p ~/.local/bin ~/.local/src
