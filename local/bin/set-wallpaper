@@ -1,0 +1,31 @@
+#!/bin/sh
+[ -z "$DISPLAY" ] && export DISPLAY=:0
+
+# If an image path is provided, update the default wallpaper
+if [ -n "$1" ]; then
+    if [ -f "$1" ]; then
+        cp "$1" "$HOME/.config/wallpaper.jpg"
+    else
+        echo "Error: File '$1' not found."
+        exit 1
+    fi
+fi
+
+WALLPAPER="$HOME/.config/wallpaper.jpg"
+
+# 1. Set wallpaper with feh
+feh --bg-fill "$WALLPAPER"
+
+# 2. Generate color palettes via matugen
+if command -v matugen >/dev/null 2>&1; then
+    matugen image "$WALLPAPER"
+fi
+
+# 3. Reload Xresources colors globally
+[ -f "$HOME/.Xresources" ] && xrdb -load "$HOME/.Xresources"
+
+# 4. Restart Dunst notifications to pick up new colors
+if pgrep -x dunst >/dev/null 2>&1; then
+    pkill -x dunst
+    dunst &
+fi

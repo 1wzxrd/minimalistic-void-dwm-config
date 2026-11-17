@@ -1,0 +1,22 @@
+[config]
+reload_apps = true
+
+[templates.gtk3]
+input_path = "~/.config/matugen/templates/gtk.css"
+output_path = "~/.config/gtk-3.0/gtk.css"
+
+[templates.gtk4]
+input_path = "~/.config/matugen/templates/gtk.css"
+output_path = "~/.config/gtk-4.0/gtk.css"
+
+[templates.xresources]
+input_path = "~/.config/matugen/templates/colors.Xresources"
+output_path = "~/.Xresources"
+
+[templates.dunst]
+input_path = "~/.config/matugen/templates/dunstrc"
+output_path = "~/.config/dunst/dunstrc"
+
+[templates.dwm]
+input_path = "~/.config/matugen/templates/dwm-colors.h"
+output_path = "~/.local/src/dwm/colors.h"
