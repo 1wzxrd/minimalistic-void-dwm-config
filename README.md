@@ -4,8 +4,11 @@ Minimalist Void Linux X11 desktop built around `dwm`, `slstatus`, `slock`, `pico
 
 ## Structure
 - `dwm/` — Custom source builds (`src/`) for `dwm`, `slstatus`, `slock`, and automation scripts (`scripts/`)
-- `theme/` — Appearance and UI configs (`matugen`, `gtk-3.0`, `gtk-4.0`, `pcmanfm`, `alacritty`)
-- `config/` — Core environment configs (`shell/` dotfiles, `picom`, `pipewire`)
+- `config/` — All environment and appearance configurations:
+  - `shell/` — `.bashrc`, `.bash_profile`, `.xinitrc`
+  - `matugen/` — Color generation config and templates
+  - `theme/` — `gtk-3.0`, `gtk-4.0`, `pcmanfm`, and `alacritty`
+  - `picom/` & `pipewire/` — Compositor glass blur and audio configs
 - `packages.txt` & `install.sh` — Full Void Linux package manifest and automated installer
 
 ## Quick Install
