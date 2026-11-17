@@ -2,6 +2,10 @@
 
 static const char *lockcmd[] = { "slock", NULL };
 static const char *filecmd[] = { "pcmanfm", NULL };
+static const char *wallcmd[] = { "set-wallpaper", "--random", NULL };
+
+
+
 
 static void
 restart(const Arg *arg)
@@ -111,7 +115,7 @@ static const Key keys[] = {
 	{ Mod1Mask,                     XK_Tab,    focusstack,     {.i = +1 } },
 	{ Mod1Mask|ShiftMask,           XK_Tab,    focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = filecmd } },
-
+	{ MODKEY,                       XK_w,      spawn,          {.v = wallcmd } },
 };
 
 /* button definitions */
