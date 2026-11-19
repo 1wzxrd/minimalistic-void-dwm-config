@@ -1,0 +1,45 @@
+export PATH="$HOME/.local/bin:$PATH"
+
+
+
+# --- Exact same prompt look as your old Bash PS1: [user@host dir]$ ---
+PROMPT='[%n@%m %1~]%# '
+
+# --- History (required for autosuggestions to remember commands) ---
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt SHARE_HISTORY HIST_IGNORE_DUPS
+
+
+
+# --- Tab completion ---
+autoload -Uz compinit && compinit
+
+# --- Native-speed inline autosuggestions ---
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+
+# --- Package Removal & Cleanup ---
+alias xr='sudo xbps-remove'              # Remove a package (leaves dependencies)
+alias xrr='sudo xbps-remove -R'          # Remove a package + unused dependencies
+alias xro='sudo xbps-remove -o'          # Remove orphaned dependencies
+alias xrc='sudo xbps-remove -O'          # Clean obsolete cached packages
+alias xrca='sudo xbps-remove -OO'        # Clean ALL cached packages (use with caution)
+
+# --- Package Holding (Pinning) ---
+alias xhold='sudo xbps-pkgdb -m hold'    # Prevent a package from being updated
+alias xunhold='sudo xbps-pkgdb -m unhold'# Allow a held package to update again
+alias xheld='xbps-query -H'              # List all currently held packages
+
+# --- Maintenance & Repair ---
+alias xup='sudo xbps-install -Su'        # Sync repos and update system (alternative to xi -Su)
+alias xfix='sudo xbps-pkgdb -a'          # Check and repair package database / permissions
+alias xreconf='sudo xbps-reconfigure -fa'# Force reconfigure all installed packages
+
+
+
+# --- Word deletion in st (Ctrl+Backspace and Ctrl+Delete) ---
+bindkey '^H' backward-kill-word        # Ctrl+Backspace: delete previous word
+bindkey '^[[3;5~' kill-word            # Ctrl+Delete: delete next word (standard st)
+bindkey '^[[M' kill-word               # Ctrl+Delete: fallback for older/patched st

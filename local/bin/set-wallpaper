@@ -1,0 +1,47 @@
+#!/bin/sh
+[ -z "$DISPLAY" ] && export DISPLAY=:0
+
+WALLPAPER_DIR="$HOME/.local/share/wallpapers"
+CURRENT_LINK="$HOME/.config/wallpaper.jpg"
+
+if [ "$1" = "--random" ] || [ "$1" = "-r" ]; then
+    PICKED=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | shuf -n 1)
+    if [ -z "$PICKED" ]; then
+        command -v notify-send >/dev/null 2>&1 && notify-send "Wallpaper" "No images found in $WALLPAPER_DIR"
+        exit 1
+    fi
+    cp -f "$PICKED" "$CURRENT_LINK"
+elif [ -n "$1" ]; then
+    if [ -f "$1" ]; then
+        cp -f "$1" "$CURRENT_LINK"
+    else
+        echo "Error: File '$1' not found."
+        exit 1
+    fi
+fi
+
+# 1. Apply wallpaper with feh
+[ -f "$CURRENT_LINK" ] && feh --bg-fill "$CURRENT_LINK"
+
+
+
+# 2. Generate Matugen color palettes & rebuild dwm binary
+if command -v matugen >/dev/null 2>&1 && [ -f "$CURRENT_LINK" ]; then
+    # Generate colors using dark mode without prompting
+    matugen image "$CURRENT_LINK" -m dark >/dev/null 2>&1
+    
+    # Recompile dwm quietly in the background
+    (cd /home/xan/.local/src/dwm && make >/dev/null 2>&1 && sudo make install >/dev/null 2>&1) &
+fi
+
+
+
+
+# 3. Reload Xresources globally
+[ -f "$HOME/.Xresources" ] && xrdb -load "$HOME/.Xresources"
+
+# 4. Restart Dunst cleanly
+if pgrep -x dunst >/dev/null 2>&1; then
+    pkill -x dunst
+    dunst >/dev/null 2>&1 &
+fi
