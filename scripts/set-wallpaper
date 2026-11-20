@@ -1,0 +1,38 @@
+#!/bin/sh
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"
+[ -z "$DISPLAY" ] && export DISPLAY=:0
+
+WALLPAPER_DIR="$HOME/.local/share/wallpapers"
+CURRENT_LINK="$HOME/.config/wallpaper.jpg"
+
+if [ "$1" = "--random" ] || [ "$1" = "-r" ]; then
+	PICKED=$(find "$WALLPAPER_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | shuf -n 1)
+	if [ -z "$PICKED" ]; then
+		command -v notify-send >/dev/null 2>&1 && notify-send "Wallpaper" "No images found in $WALLPAPER_DIR"
+		exit 1
+	fi
+	cp -f "$PICKED" "$CURRENT_LINK"
+elif [ -n "$1" ]; then
+	if [ -f "$1" ]; then
+		cp -f "$1" "$CURRENT_LINK"
+	else
+		echo "Error: File '$1' not found."
+		exit 1
+	fi
+fi
+
+# 1. Apply wallpaper with xwallpaper
+[ -f "$CURRENT_LINK" ] && xwallpaper --zoom "$CURRENT_LINK"
+
+# 2. Generate and persist palette with walrs (without touching xfe, st, or status bar)
+if command -v walrs >/dev/null 2>&1 && [ -f "$CURRENT_LINK" ]; then
+	walrs -i "$CURRENT_LINK"
+	[ -f "$HOME/.cache/wal/colors.Xresources" ] && xrdb -merge "$HOME/.cache/wal/colors.Xresources"
+fi
+
+
+# 3. Restart Dunst cleanly
+if pgrep -x dunst >/dev/null 2>&1; then
+	pkill -x dunst
+	dunst >/dev/null 2>&1 &
+fi

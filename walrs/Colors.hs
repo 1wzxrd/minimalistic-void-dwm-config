@@ -1,0 +1,28 @@
+module Colors
+    ( wallpaper
+    , background, foreground, cursor
+    , color0, color1, color2, color3, color4, color5, color6, color7
+    , color8, color9, color10, color11, color12, color13, color14, color15
+    ) where
+wallpaper="/home/xan/.config/wallpaper.jpg"
+-- Special
+background="#0b182e"
+foreground="#d9e8f9"
+cursor="#d9e8f9"
+-- Colors
+color0="#0b182e"
+color1="#61779a"
+color2="#6e87b0"
+color3="#6f91bc"
+color4="#8b8da3"
+color5="#96b7d8"
+color6="#81a5ce"
+color7="#d9e8f9"
+color8="#405c82"
+color9="#61779a"
+color10="#6e87b0"
+color11="#6f91bc"
+color12="#8b8da3"
+color13="#96b7d8"
+color14="#81a5ce"
+color15="#d9e8f9"

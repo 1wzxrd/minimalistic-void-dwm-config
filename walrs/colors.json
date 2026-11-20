@@ -1,0 +1,28 @@
+{
+    "checksum": "0B182E61779A6E87B06F91BC8B8DA396B7D881A5CED9E8F9405C8261779A6E87B06F91BC8B8DA396B7D881A5CED9E8F9",
+    "wallpaper": "/home/xan/.config/wallpaper.jpg",
+    "alpha": "100",
+    "special": {
+        "background": "#0b182e",
+        "foreground": "#d9e8f9",
+        "cursor": "#d9e8f9"
+    },
+    "colors": {
+        "color0": "#0b182e",
+        "color1": "#61779a",
+        "color2": "#6e87b0",
+        "color3": "#6f91bc",
+        "color4": "#8b8da3",
+        "color5": "#96b7d8",
+        "color6": "#81a5ce",
+        "color7": "#d9e8f9",
+        "color8": "#405c82",
+        "color9": "#61779a",
+        "color10": "#6e87b0",
+        "color11": "#6f91bc",
+        "color12": "#8b8da3",
+        "color13": "#96b7d8",
+        "color14": "#81a5ce",
+        "color15": "#d9e8f9"
+    }
+}

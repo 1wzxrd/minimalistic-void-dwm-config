@@ -1,0 +1,9 @@
+46:snap() {
+47-local out="$HOME/shot.png"
+48-local ip
+49-DISPLAY=:0 maim "$@" "$out" || return 1
+50-ip=$(ip -4 -o addr show scope global 2>/dev/null | awk '{split($4, a, "/"); print a[1]; exit}')
+51-[ -z "$ip" ] && ip="127.0.0.1"
+52-echo "Saved $out -> http://$ip:8000/shot.png (Ctrl+C to stop)"
+53-cd "$HOME" && python3 -m http.server 8000
+54-}
